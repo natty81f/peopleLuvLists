@@ -1,7 +1,7 @@
 //function to create a template helper called posts that returns the Posts collection
 Template.postsList.helpers({
   posts: function() {
-    return Posts.find();
+    return Posts.find({}, {sort: {submitted: -1}});
   }
 });
 
