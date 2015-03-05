@@ -9,6 +9,8 @@ Meteor.publish('comments', function(postId) {
   return Comments.find({postId: postId});
 });
 
+
+//return a cursor that corresponds to the current user's notifications
 Meteor.publish('notifications', function() {
-  return Notifications.find();
+  return Notifications.find({userId: this.userId, read: false});
 });
