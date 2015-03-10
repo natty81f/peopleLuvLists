@@ -10,7 +10,7 @@ Meteor.publish('comments', function(postId) {
 });
 
 
-//return a cursor that corresponds to the current user's notifications
+//return a cursor that corresponds to the current user's notifications. User's can only see their own notifications
 Meteor.publish('notifications', function() {
   return Notifications.find({userId: this.userId, read: false});
 });
