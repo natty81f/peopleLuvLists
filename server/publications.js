@@ -1,6 +1,10 @@
 //function that returns a cursor referencing all posts
-Meteor.publish('posts', function() {
-  return Posts.find();
+Meteor.publish('posts', function(options) {
+  check(options, {
+    sort: Object,
+    limit: Number
+  });
+  return Posts.find({}, options);
 });
 
 //Making sure we restrict our data set to comments belonging to the current post:
