@@ -7,6 +7,13 @@ Meteor.publish('posts', function(options) {
   return Posts.find({}, options);
 });
 
+//Separate singlePost publication that only publishes one post, identified by _id.
+Meteor.publish('singlePost', function(id) {
+  check(id, String)
+  return Posts.find(id);
+});
+
+
 //Making sure we restrict our data set to comments belonging to the current post:
 Meteor.publish('comments', function(postId) {
   check(postId, String);
