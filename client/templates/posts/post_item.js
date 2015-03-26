@@ -8,12 +8,21 @@ Template.postItem.helpers({
     var a = document.createElement('a');
     a.href = this.url;
     return a.hostname;
+  },
+  //helper to conditionally add a disabled CSS class to the upvote button.
+  upvotedClass: function() {
+    var userId = Meteor.userId();
+    if (userId && !_.include(this.upvoters, userId)) {
+      return 'btn-primary upvotable';
+    } else {
+      return 'disabled';
+    }
   }
 });
 
-// call a server upvote Method when the user clicks on the button
+// call a server upvotable Method when the user clicks on the button
 Template.postItem.events({
-  'click .upvote': function(e) {
+  'click .upvotable': function(e) {
     e.preventDefault();
     Meteor.call('upvote', this._id);
   }
