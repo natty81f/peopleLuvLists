@@ -1,7 +1,7 @@
-////Initialize the object whenever the postSubmit template is created.
 Template.postEdit.created = function() {
   Session.set('postEditErrors', {});
 }
+
 Template.postEdit.helpers({
   errorMessage: function(field) {
     return Session.get('postEditErrors')[field];
@@ -10,7 +10,6 @@ Template.postEdit.helpers({
     return !!Session.get('postEditErrors')[field] ? 'has-error' : '';
   }
 });
-
 
 Template.postEdit.events({
   'submit form': function(e) {
@@ -23,12 +22,9 @@ Template.postEdit.events({
       title: $(e.target).find('[name=title]').val()
     }
 
-
-    //Calling the validatePost function on edit
     var errors = validatePost(postProperties);
     if (errors.title || errors.url)
       return Session.set('postEditErrors', errors);
-
 
     Posts.update(currentPostId, {$set: postProperties}, function(error) {
       if (error) {
@@ -46,7 +42,7 @@ Template.postEdit.events({
     if (confirm("Delete this post?")) {
       var currentPostId = this._id;
       Posts.remove(currentPostId);
-      Router.go('postsList');
+      Router.go('home');
     }
   }
 });
